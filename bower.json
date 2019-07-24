@@ -1,0 +1,22 @@
+{
+  "name": "realtime-nodejs",
+  "description": "Manage frontend with libraries",
+  "main": "src/index.js",
+  "authors": [
+    "lvhquan"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/HongQuan0110/realtime-nodejs",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/public/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bower_components": "https://github.com/trungquan17/awesome-chat-third-party-libraries.git"
+  }
+}
