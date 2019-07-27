@@ -1,5 +1,6 @@
 import express from "express";
 import { auth, home } from "../controllers/index";
+import { authValidation } from "../validation/index";
 
 const router = express.Router();
 
@@ -9,9 +10,11 @@ const router = express.Router();
  */
 
 const initRoutes = (app) => {
-    router.get('/', home.getHome)
+    router.get('/', home.getHome);
     
-    router.get('/login', auth.getLoginRegister)
+    router.post('/register', authValidation.register, auth.postRegister);
+
+    router.get('/login', auth.getLoginRegister);
 
     app.use('/', router);
 }
