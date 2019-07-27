@@ -1,3 +1,3 @@
 module.exports.getHome = (req, res, next) => {
-    return res.render('auth/loginRegister');
+    return res.render('main/home/home.ejs');
 }

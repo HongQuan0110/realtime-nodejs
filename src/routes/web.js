@@ -9,9 +9,9 @@ const router = express.Router();
  */
 
 const initRoutes = (app) => {
-    router.get('/', auth.getLoginRegister)
+    router.get('/', home.getHome)
     
-    router.get('/login', home.getHome)
+    router.get('/login', auth.getLoginRegister)
 
     app.use('/', router);
 }
