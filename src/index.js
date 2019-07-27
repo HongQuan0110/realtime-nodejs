@@ -2,6 +2,7 @@ import express from "express";
 import ConnectDB from "./config/connectDB";
 import ContactModel from "./models/contact.model";
 import ViewEngine from "./config/viewEngine";
+import InitRoutes from "./routes/web";
 
 // Init app
 let app = express();
@@ -12,13 +13,8 @@ ConnectDB();
 // config view engine
 ViewEngine(app);
 
-app.get('/', (req, res, next) => {
-    return res.render('main/master');
-})
-
-app.get('/login', (req, res, next) => {
-    return res.render('auth/loginRegister');
-})
+// Init all routes
+InitRoutes(app);
 
 app.get('/test-db', async (req, res, next) => {
     try {
