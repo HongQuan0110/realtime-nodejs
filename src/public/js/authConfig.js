@@ -33,8 +33,8 @@ function showRegisterForm() {
   }
   
   function openRegisterModal() {
-    showRegisterForm();
     setTimeout(function() {
+      showRegisterForm();
       $('#loginModal').modal('show');
     }, 230);
   }

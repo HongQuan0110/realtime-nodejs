@@ -1,8 +1,11 @@
 import express from "express";
 import ConnectDB from "./config/connectDB";
 import ContactModel from "./models/contact.model";
-import ViewEngine from "./config/viewEngine";
+import configViewEngine from "./config/viewEngine";
 import InitRoutes from "./routes/web";
+import bodyParser from "body-parser";
+import connectFlash from "connect-flash";
+import configSession from "./config/session";
 
 // Init app
 let app = express();
@@ -10,8 +13,21 @@ let app = express();
 // Connect to mongoDB
 ConnectDB();
 
+// Enable post data for request
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }))
+
+// parse application/json
+app.use(bodyParser.json())
+
+// Enable flash messages
+app.use(connectFlash())
+
 // config view engine
-ViewEngine(app);
+configViewEngine(app);
+
+// config session
+configSession(app);
 
 // Init all routes
 InitRoutes(app);
