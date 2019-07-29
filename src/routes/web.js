@@ -14,6 +14,8 @@ const initRoutes = (app) => {
     
     router.post('/register', authValidation.register, auth.postRegister);
 
+    router.get('/verify/:token', auth.verifyToken);
+
     router.get('/login', auth.getLoginRegister);
 
     app.use('/', router);

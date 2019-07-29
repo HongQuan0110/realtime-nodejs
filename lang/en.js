@@ -8,11 +8,26 @@ export const transValidation = {
 export const transError = {
     ACCOUNT_IN_USE: "This email have been used",
     ACCOUNT_REMOVE: "This email have been removed from system, please contact to receive support",
-    ACCOUNT_NOT_ACTIVE: "This emai do not active, please check your email to verify account"
+    ACCOUNT_NOT_ACTIVE: "This emai do not active, please check your email to verify account",
+    TOKEN_UNDEFINED: "Invalid token"
 }
 
 export const transSuccess = {
     USER_CREATED: (email) => {
         return `This account <strong>${email}</strong> have been created but not active, please check your email to verify account`
-    }
+    },
+    ACCOUNT_ACTIVE: "This account is active, your can login into system"
+}
+
+export const transMail = {
+    SUBJECT: "Awesome Chat: Verify account",
+    TEMPLATE: (linkVerify) => {
+        return `
+            <h2>Your receive this email to verify your account on Awesome Chat</h2>
+            <h3>Please click to link below to active your account</h3>
+            <h3><a href="${linkVerify}"></a>${linkVerify}</h3>
+            <h4>if have something wrong, please skip this email</h4>
+        `
+    },
+    SEND_FAILED: "Something wrong happen, please contact us to receive support"
 }

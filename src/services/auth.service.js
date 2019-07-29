@@ -1,13 +1,14 @@
 import bcrypt from "bcrypt";
 import uuidv4 from "uuid/v4"
 import UserModal from "../models/user.model";
-import { transError, transSuccess } from "../../lang/en";
+import { transError, transSuccess, transMail } from "../../lang/en";
+import sendMail from "../config/mailer";
 
 const saltRounds = 7;
 
 let salt = bcrypt.genSaltSync(saltRounds);
 
-let register = async (email, gender, password) => {
+let register = async (email, gender, password, protocol, host) => {
 
     let userByEmail = await UserModal.findByEmail(email);
 
@@ -32,9 +33,38 @@ let register = async (email, gender, password) => {
     }
 
     let user = await UserModal.createNew(userItem);
-    return transSuccess.USER_CREATED(user.local.email);
+    let linkVerify = `${protocol}://${host}/verify/${user.local.verifyToken}`
+    return sendMail(email, transMail.SUBJECT, transMail.TEMPLATE(linkVerify))
+        .then(success => {
+            console.log(success);
+            
+            return transSuccess.USER_CREATED(user.local.email);
+        })
+        .catch(async err => {
+            // Remove user
+            console.log(err);
+            
+            await UserModal.removeUserById(user._id);
+            return transMail.SEND_FAILED;
+        })
+}
+
+let verifyToken = (token) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let user = await UserModal.verifyToken(token);
+            if(!user){
+                return reject(transError.TOKEN_UNDEFINED);
+            }
+            
+            resolve(transSuccess.ACCOUNT_ACTIVE);
+        } catch (error) {
+            reject(transError.TOKEN_UNDEFINED);
+        }
+    }) 
 }
 
 module.exports = {
-    register
+    register,
+    verifyToken
 }
