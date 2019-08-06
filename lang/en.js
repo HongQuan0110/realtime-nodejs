@@ -9,14 +9,19 @@ export const transError = {
     ACCOUNT_IN_USE: "This email have been used",
     ACCOUNT_REMOVE: "This email have been removed from system, please contact to receive support",
     ACCOUNT_NOT_ACTIVE: "This emai do not active, please check your email to verify account",
-    TOKEN_UNDEFINED: "Invalid token"
+    TOKEN_UNDEFINED: "Invalid token",
+    LOGIN_FAILED: "Wrong account or password",
+    SERVER_ERROR: "Internal server error"
 }
 
 export const transSuccess = {
     USER_CREATED: (email) => {
         return `This account <strong>${email}</strong> have been created but not active, please check your email to verify account`
     },
-    ACCOUNT_ACTIVE: "This account is active, your can login into system"
+    ACCOUNT_ACTIVE: "This account is active, your can login into system",
+    LOGIN_SUCCESS: (username) => {
+        return `Hello ${username}, have a good day`
+    }
 }
 
 export const transMail = {
