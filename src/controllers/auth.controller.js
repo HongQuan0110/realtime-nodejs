@@ -1,6 +1,6 @@
 import { validationResult } from "express-validator";
 import { auth } from "../services/index";
-import { transError, transMail } from "../../lang/en";
+import { transError, transMail, transSuccess } from "../../lang/en";
 
 module.exports.getLoginRegister = (req, res, next) => {
     return res.render('auth/master', {
@@ -53,5 +53,22 @@ module.exports.verifyToken = async (req, res, next) => {
 }
 
 module.exports.getLogout = (req, res, next) => {
-    // do something
+    // method logout come from passport
+    req.logout(); // remove session passport
+    req.flash("success", transSuccess.LOGOUT_SUCCESS);
+    return res.redirect('/login');
+}
+
+module.exports.checkLoggedIn = (req, res, next) => {
+    if(!req.isAuthenticated()){
+        return res.redirect("/login");
+    }
+    next();
+}
+
+module.exports.checkLogOut = (req, res, next) => {
+    if(req.isAuthenticated()){
+        return res.redirect("/");
+    }
+    next();
 }

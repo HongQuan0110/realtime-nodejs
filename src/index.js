@@ -21,10 +21,6 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // parse application/json
 app.use(bodyParser.json())
 
-// Config passport js
-app.use(passport.initialize());
-app.use(passport.session());
-
 // Enable flash messages
 app.use(connectFlash())
 
@@ -33,6 +29,10 @@ configViewEngine(app);
 
 // config session
 configSession(app);
+
+// Config passport js
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Init all routes
 InitRoutes(app);
