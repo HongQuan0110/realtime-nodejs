@@ -21,7 +21,8 @@ export const transSuccess = {
     ACCOUNT_ACTIVE: "This account is active, your can login into system",
     LOGIN_SUCCESS: (username) => {
         return `Hello ${username}, have a good day`
-    }
+    },
+    LOGOUT_SUCCESS: "Logout success, see you again!"
 }
 
 export const transMail = {
