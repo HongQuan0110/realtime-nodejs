@@ -42,7 +42,7 @@ let initPassportLocal = () => {
     });
 
     // This is called by passport.session()
-    // return userinfo tp req.user
+    // return userinfo to req.user
     passport.deserializeUser((id, done) => {
         UserModal.findUserById(id)
         .then(user => {
