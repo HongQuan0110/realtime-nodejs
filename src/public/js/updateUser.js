@@ -9,17 +9,17 @@ function updateUserInfo(){
         let match = ["image/png", "image/jpg", "image/jpeg"];
         let limit = 1048576;
 
-        if($.inArray(fileData.type, match) === -1){
-            alertify.notify("File not match, allow png, jpg and jpeg", "error", 5);
-            $(this).val(null);
-            return false;
-        }
+        // if($.inArray(fileData.type, match) === -1){
+        //     alertify.notify("File not match, allow png, jpg and jpeg", "error", 5);
+        //     $(this).val(null);
+        //     return false;
+        // }
 
-        if(fileData.size > limit){
-            alertify.notify("Upload image limit 1MB", "error", 5);
-            $(this).val(null);
-            return false;
-        }
+        // if(fileData.size > limit){
+        //     alertify.notify("Upload image limit 1MB", "error", 5);
+        //     $(this).val(null);
+        //     return false;
+        // }
 
         if(typeof(FileReader) != "undefined"){
             let imagePreview = $("#image-edit-profile");
@@ -85,11 +85,27 @@ $(document).ready(function(){
             contentType: false,
             processData: false,
             data: userAvatar,
-            success: function(){
+            success: function(result){
+                // Display success
+                $(".user-modal-alert-success").find("span").text(result.message);
+                $(".user-modal-alert-success").css("display", "block");
 
+                // Update avatar at navbar
+                $("#navbar-avatar").attr("src", result.imageSrc);
+
+                // Update orign avatar src
+                originAvatarSrc = result.imageSrc;
+
+                // Reset all
+                $("#input-btn-cancel-update-user").click();
             },
-            error: function(){
+            error: function(error){
+                // Display error
+                $(".user-modal-alert-error").find("span").text(error.responseText);
+                $(".user-modal-alert-error").css("display", "block");
 
+                // Reset all
+                $("#input-btn-cancel-update-user").click();
             }
         })
         // console.log(userAvatar);

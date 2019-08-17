@@ -11,7 +11,9 @@ export const transError = {
     ACCOUNT_NOT_ACTIVE: "This emai do not active, please check your email to verify account",
     TOKEN_UNDEFINED: "Invalid token",
     LOGIN_FAILED: "Wrong account or password",
-    SERVER_ERROR: "Internal server error"
+    SERVER_ERROR: "Internal server error",
+    AVATAR_TYPE: "File not match, allow png, jpg and jpeg",
+    AVATAR_SIZE: "Upload image limit 1MB"
 }
 
 export const transSuccess = {
@@ -22,7 +24,8 @@ export const transSuccess = {
     LOGIN_SUCCESS: (username) => {
         return `Hello ${username}, have a good day`
     },
-    LOGOUT_SUCCESS: "Logout success, see you again!"
+    LOGOUT_SUCCESS: "Logout success, see you again!",
+    AVATAR_UPDATED: "Update avatar success"
 }
 
 export const transMail = {
