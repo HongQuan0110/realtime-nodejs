@@ -1,6 +1,7 @@
 import multer from "multer";
 import uuidv4 from "uuid/v4"
 import fsExtra from "fs-extra";
+import { validationResult } from "express-validator";
 
 import { transError, transSuccess } from "../../lang/en";
 import { app } from "../config/app";
@@ -47,7 +48,7 @@ module.exports.updateAvatar = (req, res, next) => {
             }
 
             let result = {
-                message: transSuccess.AVATAR_UPDATED,
+                message: transSuccess.USER_INFO_UPDATED,
                 imageSrc: `/images/users/${req.file.filename}`
             }
 
@@ -57,4 +58,29 @@ module.exports.updateAvatar = (req, res, next) => {
             return res.status(500).send(error);
         }
     })
+}
+
+module.exports.updateInfo = async (req, res, next) => {
+    let errorArr = [];
+    let result = validationResult(req);
+
+    if(!result.isEmpty()){
+        let errors = Object.values(result.mapped());
+        errors.map(val => {
+            errorArr.push(val.msg)
+        });
+        return res.status(500).send(errorArr);
+    }
+
+    try {
+        let updateUserItem = req.body;
+        await user.updateUser(req.user._id, updateUserItem);
+        let result = {
+            message: transSuccess.USER_INFO_UPDATED
+        }
+        res.status(200).send(result);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send(error);
+    }
 }

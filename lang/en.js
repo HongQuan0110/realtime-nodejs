@@ -2,7 +2,11 @@ export const transValidation = {
     EMAIL_INCORRECT: "Email must be example@email.com",
     GENDER_INCORRECT: "Have something wrong with gender",
     PASSWORD_INCORRECT: "Password must have least 8 characters, include capitalize, lowercase and special characters",
-    PASSWORD_CONFIRMATION_INCORRECT: "Password do not match"
+    PASSWORD_CONFIRMATION_INCORRECT: "Password do not match",
+    UPDATE_USERNAME: "Username limit from 3-17 characters and do not contain special characters",
+    UPDATE_GENDER: "Oops! Data gender have something wrong",
+    UPDATE_ADDRESS: "Address limit from 3-30 characters",
+    UPDATE_PHONE: "Phone must begin from 0 and limit about 10-11 numbers"
 }
 
 export const transError = {
@@ -25,7 +29,8 @@ export const transSuccess = {
         return `Hello ${username}, have a good day`
     },
     LOGOUT_SUCCESS: "Logout success, see you again!",
-    AVATAR_UPDATED: "Update avatar success"
+    AVATAR_UPDATED: "Update avatar success",
+    USER_INFO_UPDATED: "Update user info success"
 }
 
 export const transMail = {
