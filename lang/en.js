@@ -13,11 +13,13 @@ export const transError = {
     ACCOUNT_IN_USE: "This email have been used",
     ACCOUNT_REMOVE: "This email have been removed from system, please contact to receive support",
     ACCOUNT_NOT_ACTIVE: "This emai do not active, please check your email to verify account",
+    ACCOUNT_UNDEFINED: "This account undefined",
     TOKEN_UNDEFINED: "Invalid token",
     LOGIN_FAILED: "Wrong account or password",
     SERVER_ERROR: "Internal server error",
     AVATAR_TYPE: "File not match, allow png, jpg and jpeg",
-    AVATAR_SIZE: "Upload image limit 1MB"
+    AVATAR_SIZE: "Upload image limit 1MB",
+    USER_CURRENT_PASSWORD_FAILED: "Current password incorrect"
 }
 
 export const transSuccess = {
@@ -30,7 +32,8 @@ export const transSuccess = {
     },
     LOGOUT_SUCCESS: "Logout success, see you again!",
     AVATAR_UPDATED: "Update avatar success",
-    USER_INFO_UPDATED: "Update user info success"
+    USER_INFO_UPDATED: "Update user info success",
+    USER_PASSWORD_UPDATED: "Update password success"
 }
 
 export const transMail = {

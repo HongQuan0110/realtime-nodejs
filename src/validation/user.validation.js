@@ -15,8 +15,20 @@ let updateInfo = [
     check("phone", transValidation.UPDATE_PHONE)
         .optional()
         .matches(/^(0)[0-9]{9,10}$/)
+];
+
+let updatePassword = [
+    check("currentPassword", transValidation.PASSWORD_INCORRECT)
+        .isLength({min: 8})
+        .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/),
+    check("newPassword", transValidation.PASSWORD_INCORRECT)
+        .isLength({min: 8})
+        .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/),
+    check("confirmPassword", transValidation.PASSWORD_CONFIRMATION_INCORRECT)
+        .custom((val, {req}) => val === req.body.newPassword)
 ]
 
 module.exports = {
-    updateInfo
+    updateInfo,
+    updatePassword
 }

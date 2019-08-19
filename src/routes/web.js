@@ -58,6 +58,8 @@ const initRoutes = (app) => {
 
     router.put('/user/update-info', auth.checkLoggedIn, userValidation.updateInfo, user.updateInfo);
 
+    router.put('/user/update-password', auth.checkLoggedIn, userValidation.updatePassword, user.updatePassword);
+
     app.use('/', router);
 }
 
