@@ -70,6 +70,26 @@ UserSchema.statics = {
 
     updatePasswordById(id, hashedPassword){
         return this.findByIdAndUpdate(id, {"local.password": hashedPassword});
+    },
+
+    /**
+     * Find all users for add contact
+     * @param {array} deprecatedUserIds 
+     * @param {string} keyword 
+     */
+    findAllForAddContact(deprecatedUserIds, keyword){
+        return this.find({
+            $and: [
+                {_id: {$nin: deprecatedUserIds}},
+                {"local.isActive": true},
+                {$or: [
+                    {username: {$regex: keyword}},
+                    {"local.email": {$regex: keyword}},
+                    {"facebook.email": {$regex: keyword}},
+                    {"google.email": {$regex: keyword}}
+                ]}
+            ]
+        },"_id username address avatar" )
     }
 }
 
