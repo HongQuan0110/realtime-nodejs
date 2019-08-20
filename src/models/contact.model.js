@@ -27,6 +27,46 @@ ContactSchema.statics = {
                 {contactId: userId}
             ]
         })
+    },
+
+    /**
+     * Check exist of 2 users
+     * @param {string} userId 
+     * @param {string} contactId 
+     */
+    checkExist(userId, contactId){
+        return this.findOne({
+            $or: [
+                {$and: [
+                    {userId},
+                    {contactId}
+                ]},
+                {$and: [
+                    {userId: contactId},
+                    {contactId: userId}
+                ]}
+            ]
+        })
+    },
+
+    /**
+     * Remove request contact
+     * @param {string} userId 
+     * @param {string} contactId 
+     */
+    removeRequestContact(userId, contactId){
+        return this.remove({
+            $or: [
+                {$and: [
+                    {userId},
+                    {contactId}
+                ]},
+                {$and: [
+                    {userId: contactId},
+                    {contactId: userId}
+                ]}
+            ]
+        })
     }
 }
 

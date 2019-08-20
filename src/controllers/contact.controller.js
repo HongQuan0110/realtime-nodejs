@@ -27,3 +27,29 @@ module.exports.findUsersContact = async (req, res, next) => {
         return res.status(500).send(error);
     }
 }
+
+module.exports.addNew = async (req, res, next) => {
+    try {
+        let currentUserId = req.user._id;
+        let contactId = req.body.uid;
+
+        let newContact = await contact.addNew(currentUserId, contactId);
+        return res.status(200).send({success: !!newContact});
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error);
+    }
+}
+
+module.exports.removeRequestContact = async (req, res, next) => {
+    try {
+        let currentUserId = req.user._id;
+        let contactId = req.body.uid;
+
+        let removeReq = await contact.removeRequestContact(currentUserId, contactId);
+        return res.status(200).send({success: removeReq});
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send(error);
+    }
+}
