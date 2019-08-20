@@ -6,7 +6,8 @@ export const transValidation = {
     UPDATE_USERNAME: "Username limit from 3-17 characters and do not contain special characters",
     UPDATE_GENDER: "Oops! Data gender have something wrong",
     UPDATE_ADDRESS: "Address limit from 3-30 characters",
-    UPDATE_PHONE: "Phone must begin from 0 and limit about 10-11 numbers"
+    UPDATE_PHONE: "Phone must begin from 0 and limit about 10-11 numbers",
+    KEYWORD_FIND_USER: "Error keyword, just allow characters, numbers and space."
 }
 
 export const transError = {
