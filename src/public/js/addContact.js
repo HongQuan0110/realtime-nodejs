@@ -6,6 +6,9 @@ function addContact(){
                 $("#find-user").find(`div.user-add-new-contact[data-uid = ${targetId}]`).hide();
                 $(`.user-remove-request-contact[data-uid=${targetId}]`).css("display", "inline-block");
                 increaseNumberNotifyContact("count-request-contact-sent");
+                socket.emit("add-new-contact", {
+                    contactId: targetId
+                })
             }
         })
     })
