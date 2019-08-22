@@ -2,7 +2,7 @@
  * Created by https://trungquandev.com's author on 25/02/2018.
  */
 
-const socket = io();
+const socket = io("localhost:3000");
 
 function nineScrollLeft() {
   $('.left').niceScroll({
