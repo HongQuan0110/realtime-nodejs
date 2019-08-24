@@ -20,6 +20,23 @@ let getNotifications = async (userId, limit = 10) => {
     }
 }
 
+/**
+ * Count all notification unread
+ * @param {string} userId 
+ */
+let countNotifUnread = (userId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let notificationsUnread = await NotificationModal.model.countNotifUnread(userId);
+            resolve(notificationsUnread);
+        } catch (error) {
+            console.log('notif', error);
+            reject(error);
+        }
+    })
+}
+
 module.exports = {
-    getNotifications
+    getNotifications,
+    countNotifUnread
 }
