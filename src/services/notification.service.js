@@ -1,15 +1,16 @@
 import NotificationModal from "../models/notification.model";
 import UserModal from "../models/user.model";
 
+const LIMIT_NUMBER_TAKEN = 1;
+
 /**
  * Get notification when f5 page
  * Just 10 item one time
  * @param {string} userId 
- * @param {number} limit 
  */
-let getNotifications = async (userId, limit = 10) => {
+let getNotifications = async (userId) => {
     try {
-        let notifications = await NotificationModal.model.getByUserIdAndLimit(userId, limit);
+        let notifications = await NotificationModal.model.getByUserIdAndLimit(userId, LIMIT_NUMBER_TAKEN);
         let getNotifyContents = notifications.map(async notification => {
             let sender = await UserModal.findUserById(notification.senderId);
             return NotificationModal.contents.getContent(notification.type, notification.isRead, sender._id, sender.username, sender.avatar);
@@ -36,7 +37,29 @@ let countNotifUnread = (userId) => {
     })
 }
 
+/**
+ * Read more notification, max 10 item one time
+ * @param {string} userId 
+ * @param {number} skipNumber 
+ */
+let readMore = (userId, skipNumber) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let newNotification = await NotificationModal.model.readMore(userId, skipNumber, LIMIT_NUMBER_TAKEN);
+            let getNotifyContents = newNotification.map(async notification => {
+                let sender = await UserModal.findUserById(notification.senderId);
+                return NotificationModal.contents.getContent(notification.type, notification.isRead, sender._id, sender.username, sender.avatar);
+            });
+            return resolve(Promise.all(getNotifyContents));
+        } catch (error) {
+            console.log("notification service", error);
+            reject(false);
+        }
+    })
+}
+
 module.exports = {
     getNotifications,
-    countNotifUnread
+    countNotifUnread,
+    readMore
 }
