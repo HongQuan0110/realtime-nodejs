@@ -58,8 +58,26 @@ let readMore = (userId, skipNumber) => {
     })
 }
 
+/**
+ * Mark notification as read
+ * @param {string} userId 
+ * @param {array} targetUsers 
+ */
+let markAllAsRead = (userId, targetUsers) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            await NotificationModal.model.markAllAsRead(userId, targetUsers);
+            resolve(true);
+        } catch (error) {
+            console.log("Error when mark notification as read:", error);
+            reject(false);
+        }
+    })
+}
+
 module.exports = {
     getNotifications,
     countNotifUnread,
-    readMore
+    readMore,
+    markAllAsRead
 }

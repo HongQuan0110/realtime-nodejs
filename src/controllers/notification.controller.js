@@ -13,3 +13,13 @@ module.exports.readMore = async (req, res, next) => {
         return res.status(500).send(error);
     }
 }
+
+module.exports.markAllAsRead = async (req, res, next) => {
+    try {
+        let mark = await notification.markAllAsRead(req.user._id, req.body.targetUsers);
+        return res.status(200).send(mark);
+    } catch (error) {
+        console.log("Error markAllAsRead:", error);
+        return res.status(500).send(error);
+    }
+}
