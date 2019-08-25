@@ -57,6 +57,16 @@ NotificationSchema.statics = {
                 {isRead: false}
             ]
         })
+    },
+
+    /**
+     * Read more notification
+     * @param {string} userId 
+     * @param {number} skipNumber 
+     * @param {number} limit 
+     */
+    readMore(userId, skipNumber, limit){
+        return this.find({receiverId: userId}).sort({createdAt: -1}).skip(skipNumber).limit(limit);
     }
 }
 
