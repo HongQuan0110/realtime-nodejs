@@ -67,6 +67,93 @@ ContactSchema.statics = {
                 ]}
             ]
         })
+    },
+
+    /**
+     * Get contacts by userId and limit
+     * @param {string} userId 
+     * @param {number} limit 
+     */
+    getContacts(userId, limit){
+        return this.find({
+            $and: [
+                {$or: [
+                    {userId},
+                    {contactId: userId}
+                ]},
+                {status: true}
+            ]
+        }).sort({createdAt: -1}).limit(limit);
+    },
+
+    /**
+     * Get contacts sent by userId and limit
+     * @param {string} userId 
+     * @param {number} limit 
+     */
+    getContactsSent(userId, limit){
+        return this.find({
+            $and: [
+                {userId},
+                {status: false}
+            ]
+        }).sort({createdAt: -1}).limit(limit);
+    },
+
+    /**
+     * Get contacts received by userId and limit
+     * @param {string} userId 
+     * @param {number} limit 
+     */
+    getContactsReceived(userId, limit){
+        return this.find({
+            $and: [
+                {contactId: userId},
+                {status: false}
+            ]
+        }).sort({createdAt: -1}).limit(limit);
+    },
+
+    /**
+     * Get count all contacts received by userId
+     * @param {string} userId 
+     */
+    countAllContacts(userId){
+        return this.count({
+            $and: [
+                {$or: [
+                    {userId},
+                    {contactId: userId}
+                ]},
+                {status: true}
+            ]
+        })
+    },
+
+    /**
+     * Get count all contacts received by userId
+     * @param {string} userId 
+     */
+    countAllContactsSent(userId){
+        return this.count({
+            $and: [
+                {userId},
+                {status: false}
+            ]
+        })
+    },
+
+    /**
+     * Get count all contacts received by userId
+     * @param {string} userId 
+     */
+    countAllContactsReceived(userId){
+        return this.count({
+            $and: [
+                {contactId: userId},
+                {status: false}
+            ]
+        })
     }
 }
 
