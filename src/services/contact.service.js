@@ -72,9 +72,9 @@ let getContacts = (currentUserId) => {
             let contacts = await ContactModal.getContacts(currentUserId, LIMIT_NUMBER_TAKEN);
             let users = contacts.map(async contact => {
                 if(currentUserId == contact.contactId){
-                    return await UserModal.findUserById(contact.userId);
+                    return await UserModal.getNormalUserDataById(contact.userId);
                 }
-                return await UserModal.findUserById(contact.contactId);
+                return await UserModal.getNormalUserDataById(contact.contactId);
             })
 
             return resolve(Promise.all(users));
@@ -90,7 +90,7 @@ let getContactsSent = (currentUserId) => {
         try {
             let contacts = await ContactModal.getContactsSent(currentUserId, LIMIT_NUMBER_TAKEN);
             let users = contacts.map(async contact => {
-                return await UserModal.findUserById(contact.contactId);
+                return await UserModal.getNormalUserDataById(contact.contactId);
             })
 
             return resolve(Promise.all(users));
@@ -106,7 +106,7 @@ let getContactsReceived = (currentUserId) => {
         try {
             let contacts = await ContactModal.getContactsReceived(currentUserId, LIMIT_NUMBER_TAKEN);
             let users = contacts.map(async contact => {
-                return await UserModal.findUserById(contact.userId);
+                return await UserModal.getNormalUserDataById(contact.userId);
             })
 
             return resolve(Promise.all(users));
@@ -153,6 +153,72 @@ let countAllContactsReceived = (currentUserId) => {
     })
 }
 
+/**
+ * Read more contacts, max 10 item one time
+ * @param {string} currentUserId 
+ * @param {number} skipNumberContacts 
+ */
+let readMoreContacts = (currentUserId, skipNumberContacts) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let newContacts = await ContactModal.readMoreContacts(currentUserId, skipNumberContacts, LIMIT_NUMBER_TAKEN);
+            let users = newContacts.map(async contact => {
+                if(currentUserId == contact.contactId){
+                    return await UserModal.getNormalUserDataById(contact.userId);
+                }
+                return await UserModal.getNormalUserDataById(contact.contactId);
+            })
+
+            return resolve(Promise.all(users));
+        } catch (error) {
+            console.log("readMoreContacts:", error);
+            reject(error);
+        }
+    })
+}
+
+/**
+ * Read more contacts sent, max 10 item one time
+ * @param {string} currentUserId 
+ * @param {number} skipNumberContacts 
+ */
+let readMoreContactsSent = (currentUserId, skipNumberContacts) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let newContacts = await ContactModal.readMoreContactsSent(currentUserId, skipNumberContacts, LIMIT_NUMBER_TAKEN);
+            let users = newContacts.map(async contact => {
+                return await UserModal.getNormalUserDataById(contact.contactId);
+            })
+
+            return resolve(Promise.all(users));
+        } catch (error) {
+            console.log("readMoreContactsSent:", error);
+            reject(error);
+        }
+    })
+}
+
+/**
+ * Read more contacts received, max 10 item one time
+ * @param {string} currentUserId 
+ * @param {number} skipNumberContacts 
+ */
+let readMoreContactsReceived = (currentUserId, skipNumberContacts) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let newContacts = await ContactModal.readMoreContactsReceived(currentUserId, skipNumberContacts, LIMIT_NUMBER_TAKEN);
+            let users = newContacts.map(async contact => {
+                return await UserModal.getNormalUserDataById(contact.userId);
+            })
+
+            return resolve(Promise.all(users));
+        } catch (error) {
+            console.log("readMoreContactsReceived:", error);
+            reject(error);
+        }
+    })
+}
+
 module.exports = {
     findUsersContact,
     addNew,
@@ -162,5 +228,8 @@ module.exports = {
     getContactsReceived,
     countAllContacts,
     countAllContactsSent,
-    countAllContactsReceived 
+    countAllContactsReceived ,
+    readMoreContacts,
+    readMoreContactsSent,
+    readMoreContactsReceived
 }
