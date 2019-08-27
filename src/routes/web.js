@@ -68,6 +68,8 @@ const initRoutes = (app) => {
     router.delete('/contact/remove-request-contact-sent', auth.checkLoggedIn, contact.removeRequestContactSent);
 
     router.delete('/contact/remove-request-contact-received', auth.checkLoggedIn, contact.removeRequestContactReceived);
+    
+    router.put('/contact/approve-request-contact-received', auth.checkLoggedIn, contact.approveRequestContactReceived);
 
     router.get('/contact/read-more-contacts', auth.checkLoggedIn, contact.readMoreContacts);
 

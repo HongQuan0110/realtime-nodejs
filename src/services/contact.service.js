@@ -56,10 +56,9 @@ let removeRequestContactSent = (currentUserId, contactId) => {
 
         let removeReq = await ContactModal.removeRequestContactSent(currentUserId, contactId);
 
-        // remove notification
-        await NotificationModal.model.removeRequestContactSentNotification(currentUserId, contactId, NotificationModal.types.ADD_CONTACT);
-
         if(removeReq.n === 1){
+            // remove notification
+            await NotificationModal.model.removeRequestContactSentNotification(currentUserId, contactId, NotificationModal.types.ADD_CONTACT);
             resolve(true);
         }
         reject(false);
@@ -80,6 +79,31 @@ let removeRequestContactReceived = (currentUserId, contactId) => {
         // await NotificationModal.model.removeRequestContactReceivedNotification(currentUserId, contactId, NotificationModal.types.ADD_CONTACT);
 
         if(removeReq.n === 1){
+            resolve(true);
+        }
+        reject(false);
+    })
+}
+
+let approveRequestContactReceived = (currentUserId, contactId) => {
+    return new Promise(async (resolve, reject) => {
+        let contactExists = await ContactModal.checkExist(currentUserId, contactId);
+        if(!contactExists){
+            console.log(1)
+            return reject(false);
+        }
+
+        let approveReq = await ContactModal.approveRequestContactReceived(currentUserId, contactId);
+
+        if(approveReq.nModified === 1){
+            // create notification
+            let notificationItem = {
+                senderId: currentUserId,
+                receiverId: contactId,
+                type: NotificationModal.types.APPROVE_CONTACT
+            }
+
+            await NotificationModal.model.createNew(notificationItem);
             resolve(true);
         }
         reject(false);
@@ -244,6 +268,7 @@ module.exports = {
     addNew,
     removeRequestContactSent,
     removeRequestContactReceived,
+    approveRequestContactReceived,
     getContacts,
     getContactsSent,
     getContactsReceived,
