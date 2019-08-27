@@ -15,7 +15,7 @@ NotificationSchema.statics = {
         return this.create(item);
     },
 
-    removeRequestNotification(senderId, receiverId, type){
+    removeRequestContactSentNotification(senderId, receiverId, type){
         return this.remove({
             $or: [
                 {
