@@ -18,7 +18,7 @@ function callFindUsers(element){
             console.log(data);
             $("#find-user ul").html(data);
             addContact(); // js/addContact.js
-            removeRequestContact(); // js/removeRequestContact.js
+            removeRequestContactSent(); // js/removeRequestContactSent.js
         })
     }
 }

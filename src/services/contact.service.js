@@ -47,17 +47,17 @@ let addNew = (currentUserId, contactId) => {
     })
 }
 
-let removeRequestContact = (currentUserId, contactId) => {
+let removeRequestContactSent = (currentUserId, contactId) => {
     return new Promise(async (resolve, reject) => {
         let contactExists = await ContactModal.checkExist(currentUserId, contactId);
         if(!contactExists){
             return reject(false);
         }
 
-        let removeReq = await ContactModal.removeRequestContact(currentUserId, contactId);
+        let removeReq = await ContactModal.removeRequestContactSent(currentUserId, contactId);
 
         // remove notification
-        await NotificationModal.model.removeRequestNotification(currentUserId, contactId, NotificationModal.types.ADD_CONTACT);
+        await NotificationModal.model.removeRequestContactSentNotification(currentUserId, contactId, NotificationModal.types.ADD_CONTACT);
 
         if(removeReq.n === 1){
             resolve(true);
@@ -222,7 +222,7 @@ let readMoreContactsReceived = (currentUserId, skipNumberContacts) => {
 module.exports = {
     findUsersContact,
     addNew,
-    removeRequestContact,
+    removeRequestContactSent,
     getContacts,
     getContactsSent,
     getContactsReceived,
