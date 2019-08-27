@@ -32,7 +32,8 @@ let addNewContact = (io) => {
                 // clients[data.contactId].forEach(socketId => {
                 //     io.sockets.connected[socketId].emit("response-add-new-contact", currentUser);
                 // });
-                emitNotifyToArray(clients, data.contactId, io, "response-add-new-contact", currentUser);            }
+                emitNotifyToArray(clients, data.contactId, io, "response-add-new-contact", currentUser);            
+            }
         })
 
         socket.on("disconnect", function(){
