@@ -12,6 +12,8 @@ function removeRequestContactSent(){
                     $(`div.user-add-new-contact[data-uid = ${targetId}]`).css("display", "inline-block");
                     decreaseNumberNotifyContact("count-request-contact-sent");
 
+                    decreaseNumberNotification("noti_contact_counter", 1);
+                    
                     // Xóa ở modal tab đang chờ xác nhận
                     $("#request-contact-sent").find(`ul li[data-uid = ${targetId}]`).remove();
 

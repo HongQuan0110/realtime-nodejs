@@ -64,7 +64,7 @@ let server = app.listen(process.env.APP_PORT, process.env.APP_HOST, () => {
 })
 
 let io = socketio(server);
-configSocketIo(io);
+configSocketIo(io, cookieParser, session.sessionStore);
 initSockets(io);
 
 // pem.createCertificate({ days: 1, selfSigned: true }, function (err, keys) {

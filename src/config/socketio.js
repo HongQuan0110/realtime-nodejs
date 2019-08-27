@@ -1,14 +1,14 @@
 import passportSocketio from "passport.socketio";
-import cookieParser from "cookie-parser";
+// import cookieParser from "cookie-parser";
 
-import config from "../config/session";
+// import config from "../config/session";
 
-let configSocketIo = (io) => {
+let configSocketIo = (io, cookieParser, sessionStore) => {
     io.use(passportSocketio.authorize({
         cookieParser: cookieParser,
         key: process.env.SESSION_KEY,
         secret: process.env.SESSION_SECRET,
-        store: config.sessionStore,
+        store: sessionStore,
         success: (data, accept) => {
             console.log('successful connection to socket.io');
             if(data.user.logged_in){
