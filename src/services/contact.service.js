@@ -66,6 +66,26 @@ let removeRequestContactSent = (currentUserId, contactId) => {
     })
 }
 
+let removeRequestContactReceived = (currentUserId, contactId) => {
+    return new Promise(async (resolve, reject) => {
+        let contactExists = await ContactModal.checkExist(currentUserId, contactId);
+        if(!contactExists){
+            console.log(1)
+            return reject(false);
+        }
+
+        let removeReq = await ContactModal.removeRequestContactReceived(currentUserId, contactId);
+
+        // remove notification - Chức năng này chưa muốn làm
+        // await NotificationModal.model.removeRequestContactReceivedNotification(currentUserId, contactId, NotificationModal.types.ADD_CONTACT);
+
+        if(removeReq.n === 1){
+            resolve(true);
+        }
+        reject(false);
+    })
+}
+
 let getContacts = (currentUserId) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -223,6 +243,7 @@ module.exports = {
     findUsersContact,
     addNew,
     removeRequestContactSent,
+    removeRequestContactReceived,
     getContacts,
     getContactsSent,
     getContactsReceived,
