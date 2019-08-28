@@ -22,11 +22,15 @@ function approveRequestContactReceived(){
                     let userInfoHTML = userInfo[0].outerHTML;
                     $("#contacts ul").prepend(userInfoHTML);
                     $(userInfo).remove();
-            
+
                     decreaseNumberNotifyContact("count-request-contact-received"); // js/caculateNotifyContact.js
                     increaseNumberNotifyContact("count-contacts"); // js/caculateNotifyContact.js
             
                     decreaseNumberNotification("noti_contact_counter", 1) // js/caculateNotification.js
+                    
+                    removeContact(); // js/removeContact.js
+
+                    // chức năng chat
                     
                     socket.emit("approve-request-contact-received", {contactId: targetId})
                 }
@@ -79,6 +83,9 @@ socket.on("response-approve-request-contact-received", function(user){
                         </li>`;
 
     $("#contacts ul").prepend(userInfoHTML);
+    removeContact(); // js/removeContact.js
+
+    // chức năng chat
 })
 
 $(document).ready(function(){
