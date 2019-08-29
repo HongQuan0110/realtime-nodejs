@@ -43,9 +43,10 @@ module.exports.updateAvatar = (req, res, next) => {
             let userUpdate = await user.updateUser(req.user._id, updateUserItem);
 
             // Remove old user avatar
-            if(userUpdate.avatar !== app.avatar_origin){
-                await fsExtra.remove(`${app.avatar_directory}/${userUpdate.avatar}`)
-            }
+            // ko xóa avatar cũ người dùng vì trong bảng message có dùng
+            // if(userUpdate.avatar !== app.avatar_origin){
+            //     await fsExtra.remove(`${app.avatar_directory}/${userUpdate.avatar}`)
+            // }
 
             let result = {
                 message: transSuccess.USER_INFO_UPDATED,
