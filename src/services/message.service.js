@@ -3,8 +3,10 @@ import _ from "lodash";
 import ContactModal from "../models/contact.model";
 import UserModal from "../models/user.model";
 import ChatGroupModal from "../models/chatGroup.model";
+import MessageModal from "../models/message.model";
 
 const LIMIT_CONVERSATION_TAKEN = 10;
+const LIMIT_MESSAGE_TAKEN = 5;
 
 let getAllConversationItems = (currentUserId) => {
     return new Promise(async (resolve, reject) => {
@@ -31,10 +33,25 @@ let getAllConversationItems = (currentUserId) => {
                 return -item.updatedAt;
             })
 
+            // get message to apply in screen chat
+            let allConversationWithMessagesPromise = allConversations.map(async conversation => {
+                let getMessages = await MessageModal.model.getMessages(currentUserId, conversation._id, LIMIT_MESSAGE_TAKEN);
+                conversation = conversation.toObject();
+                // console.log(getMessages)
+                conversation.messages = getMessages.reverse();
+                return conversation;
+            })
+
+            let allConversationWithMessages = await Promise.all(allConversationWithMessagesPromise);
+            // sort by updated desending
+            // allConversationWithMessages = _.sortBy(allConversationWithMessages, item => {
+            //     return -item.updatedAt
+            // })
             resolve({
                 userConservation,
                 groupConversation,
-                allConversations
+                allConversations,
+                allConversationWithMessages
             })
         } catch (error) {
             console.log("getAllConversationItems:", error);

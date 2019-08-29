@@ -17,7 +17,7 @@ ContactSchema.statics = {
     },
 
     /**
-     * Find all contact that related with user
+     * Find all contact that related with user then exclude to search
      * @param {string} userId
      */
     findAllById(userId){
