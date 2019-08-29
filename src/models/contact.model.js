@@ -130,7 +130,7 @@ ContactSchema.statics = {
                 ]},
                 {status: true}
             ]
-        }).sort({createdAt: -1}).limit(limit);
+        }).sort({updatedAt: -1}).limit(limit);
     },
 
     /**
@@ -212,7 +212,7 @@ ContactSchema.statics = {
                 ]},
                 {status: true}
             ]
-        }).sort({createdAt: -1}).skip(skip).limit(limit);
+        }).sort({updatedAt: -1}).skip(skip).limit(limit);
     },
 
     readMoreContactsSent(userId, skip,limit) {

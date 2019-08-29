@@ -15,11 +15,11 @@ let getAllConversationItems = (currentUserId) => {
                 if(currentUserId == contact.contactId){
                     let getUserContact = await UserModal.getNormalUserDataById(contact.userId);
                     // getUserContact = getUserContact.toObject();
-                    getUserContact.createdAt = contact.createdAt;
+                    getUserContact.updatedAt = contact.updatedAt;
                     return getUserContact;
                 }
                 let getUserContact = await UserModal.getNormalUserDataById(contact.contactId);
-                getUserContact.createdAt = contact.createdAt;
+                getUserContact.updatedAt = contact.updatedAt;
                 return getUserContact;
             })
 
@@ -28,7 +28,7 @@ let getAllConversationItems = (currentUserId) => {
             
             let allConversations = userConservation.concat(groupConversation);
             allConversations = _.sortBy(allConversations, function(item){
-                return -item.createdAt;
+                return -item.updatedAt;
             })
 
             resolve({
