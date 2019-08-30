@@ -26,7 +26,7 @@ function nineScrollRight(id) {
 }
 
 function enableEmojioneArea(chatId) {
-  $('.write-chat[data-chat="' + chatId + '"]').emojioneArea({
+  $(`#write-chat-${chatId}`).emojioneArea({
     standalone: false,
     pickerPosition: 'top',
     filtersPosition: 'bottom',
@@ -38,7 +38,13 @@ function enableEmojioneArea(chatId) {
     shortnames: false,
     events: {
       keyup: function(editor, event) {
-        $('.write-chat').val(this.getText());
+        $(`#write-chat-${chatId}`).val(this.getText());
+        // if(event.keyCode === 13){
+        //   console.log($(`#write-chat-${chatId}`).val());
+        // }
+      },
+      click: function(){
+        textAndEmojiChat(chatId);
       }
     },
   });
@@ -181,6 +187,9 @@ function changeScreenChat(){
     // Cấu hình thanh cuộn bên box chat rightSide.ejs mỗi khi mà click chuột vào một cuộc trò chuyện
     let id = $(this).find("li").data("chat");
     nineScrollRight(id);
+
+    // Bật emoji, tham số truyền vào là id của box nhập nội dung tin nhắn
+    enableEmojioneArea(id);
   })
 }
 
@@ -196,7 +205,7 @@ $(document).ready(function() {
   // nineScrollRight();
 
   // Bật emoji, tham số truyền vào là id của box nhập nội dung tin nhắn
-  enableEmojioneArea("17071995");
+  // enableEmojioneArea("17071995");
 
   // Icon loading khi chạy ajax
   ajaxLoading();
