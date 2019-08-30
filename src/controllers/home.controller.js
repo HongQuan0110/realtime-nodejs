@@ -1,5 +1,5 @@
 import { notification, contact, message } from "../services/index";
-import { bufferToBase64 } from "../helpers/client.helper";
+import { bufferToBase64, lastItemOfArray, convertTimestampToHumanTime } from "../helpers/client.helper";
 
 module.exports.getHome = async (req, res, next) => {
     // Only (10 items one time)
@@ -23,9 +23,7 @@ module.exports.getHome = async (req, res, next) => {
     let countAllContactsReceived = await contact.countAllContactsReceived(req.user._id);
 
     let getAllConversationItems = await message.getAllConversationItems(req.user._id);
-    let allConversations = getAllConversationItems.allConversations;
-    let userConservation = getAllConversationItems.userConservation;
-    let groupConversation = getAllConversationItems.groupConversation;
+
     // all message with conversation
     let allConversationWithMessages = getAllConversationItems.allConversationWithMessages;
 
@@ -41,10 +39,9 @@ module.exports.getHome = async (req, res, next) => {
         countAllContacts,
         countAllContactsSent,
         countAllContactsReceived,
-        allConversations,
-        userConservation,
-        groupConversation,
         allConversationWithMessages,
-        bufferToBase64
+        bufferToBase64,
+        lastItemOfArray,
+        convertTimestampToHumanTime
     });
 }
