@@ -51,7 +51,7 @@ let initPassportGoogle = () => {
     // This is called by passport.session()
     // return userinfo to req.user
     passport.deserializeUser((id, done) => {
-        UserModal.findUserById(id)
+        UserModal.findUserByIdForSessionToUse(id)
         .then(user => {
             return done(null, user);
         })

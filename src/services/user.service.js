@@ -22,7 +22,7 @@ let updateUser = (id, item) => {
  */
 let updatePassword = (id, item) => {
     return new Promise(async (resolve, reject) => {
-        let currentUser = await UserModal.findUserById(id);
+        let currentUser = await UserModal.findUserByIdToUpdatePassword(id);
         if(!currentUser){
             return reject(transError.ACCOUNT_UNDEFINED);
         }
