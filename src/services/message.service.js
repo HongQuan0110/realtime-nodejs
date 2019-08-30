@@ -48,9 +48,6 @@ let getAllConversationItems = (currentUserId) => {
             //     return -item.updatedAt
             // })
             resolve({
-                userConservation,
-                groupConversation,
-                allConversations,
                 allConversationWithMessages
             })
         } catch (error) {
