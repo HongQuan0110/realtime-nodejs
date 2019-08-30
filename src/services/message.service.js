@@ -6,7 +6,7 @@ import ChatGroupModal from "../models/chatGroup.model";
 import MessageModal from "../models/message.model";
 
 const LIMIT_CONVERSATION_TAKEN = 10;
-const LIMIT_MESSAGE_TAKEN = 5;
+const LIMIT_MESSAGE_TAKEN = 10;
 
 let getAllConversationItems = (currentUserId) => {
     return new Promise(async (resolve, reject) => {
